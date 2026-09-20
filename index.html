@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#087e8b">
+  <title>亚庇 / 仙本那六日旅行手册</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #fff8ee;
+      --surface: #fffdf8;
+      --ink: #35263d;
+      --muted: #6d6172;
+      --coral: #ff8068;
+      --sun: #ffc75f;
+      --sea: #4fc9c4;
+      --deep: #163447;
+    }
+
+    :root[data-theme="night"] {
+      color-scheme: dark;
+      --bg: #091b2a;
+      --surface: #102b3d;
+      --ink: #f7f2ed;
+      --muted: #b9c8d4;
+      --coral: #ff927d;
+      --sun: #ffd27a;
+      --sea: #59d4cf;
+      --deep: #06121d;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { min-width: 320px; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; border-radius: 8px; }
+    main { width: min(100% - 24px, 760px); margin: 0 auto; padding: 18px 0 64px; }
+    section { margin-bottom: 28px; scroll-margin-top: 16px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin: 0 4px 12px; }
+    .section-head h2 { margin: 0; font-size: clamp(1.35rem, 5vw, 2rem); line-height: 1.1; }
+    .section-kicker { margin: 0 0 5px; color: var(--coral); font-size: .78rem; font-weight: 850; letter-spacing: .1em; }
+    .section-note { margin: 0; color: var(--muted); font-size: .82rem; text-align: right; }
+    .card { border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); border-radius: 24px; background: var(--surface); box-shadow: 0 10px 30px rgb(22 52 71 / .08); }
+    .now-card { border-radius: 28px; padding: 22px; background: linear-gradient(135deg, var(--coral), var(--sun)); color: #2f2037; box-shadow: 0 14px 36px rgb(22 52 71 / .14); }
+    .eyebrow { margin: 0 0 8px; font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .now-card h1 { margin: 0; font-size: clamp(1.55rem, 7vw, 2.8rem); line-height: 1.08; }
+    .now-meta { margin: 10px 0 0; line-height: 1.55; }
+    .countdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 18px; }
+    .countdown span { padding: 12px 8px; border-radius: 18px; text-align: center; background: rgb(255 255 255 / .55); }
+    .countdown strong { display: block; font-size: clamp(1.8rem, 10vw, 3.5rem); line-height: 1; font-variant-numeric: tabular-nums; }
+    .countdown small { display: block; margin-top: 6px; font-weight: 750; }
+    .map-card { overflow: hidden; padding: 12px; }
+    .overview-svg { display: block; width: 100%; height: auto; min-height: 280px; }
+    .overview-svg text { fill: var(--ink); font-family: inherit; font-size: 13px; font-weight: 800; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+    .overview-svg .land { fill: color-mix(in srgb, var(--sun) 52%, var(--surface)); stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .overview-svg .sea-doodle { fill: none; stroke: color-mix(in srgb, var(--sea) 60%, transparent); stroke-width: 2; stroke-linecap: round; }
+    .overview-svg .route { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 7; }
+    .overview-svg .node { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+    .overview-svg .stay { fill: var(--sun); stroke: var(--ink); stroke-width: 1.5; }
+    .day-1 { stroke: #ef6a5b; } .day-2 { stroke: #f5a623; } .day-3 { stroke: #22a6b3; }
+    .day-4 { stroke: #7b61ff; } .day-5 { stroke: #2f80ed; } .day-6 { stroke: #ef476f; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 12px; padding: 8px 8px 4px; color: var(--muted); font-size: .78rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .legend i { width: 18px; height: 4px; border-radius: 99px; background: currentColor; }
+    .legend .stay-key::before { content: "☾"; color: var(--ink); }
+    .booking-grid { display: grid; gap: 12px; }
+    .booking-card { padding: 18px; }
+    .booking-card h3 { margin: 0 0 4px; font-size: 1.08rem; }
+    .booking-card p { margin: 6px 0 0; color: var(--muted); line-height: 1.55; overflow-wrap: anywhere; }
+    .flight-line { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 14px; }
+    .flight-line strong { display: block; font-size: 1.35rem; color: var(--ink); }
+    .flight-line span:last-child { text-align: right; }
+    .plane { color: var(--sea); font-weight: 900; }
+    .hotel-row { display: grid; grid-template-columns: 34px 1fr; gap: 10px; }
+    .hotel-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; background: color-mix(in srgb, var(--sea) 24%, transparent); }
+    .day-list { display: grid; gap: 14px; }
+    .day-card { overflow: hidden; }
+    .day-header { padding: 17px 18px 14px; border-top: 7px solid var(--day-color); }
+    .day-header .date { color: var(--muted); font-size: .82rem; font-weight: 800; letter-spacing: .05em; }
+    .day-header h3 { margin: 4px 0 0; font-size: 1.18rem; }
+    .timeline { margin: 0; padding: 2px 18px 18px; list-style: none; }
+    .timeline li { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-top: 1px dashed color-mix(in srgb, var(--ink) 18%, transparent); }
+    .timeline time { color: var(--muted); font-size: .82rem; font-weight: 800; line-height: 1.4; }
+    .timeline h4 { margin: 0; font-size: .98rem; }
+    .timeline p { margin: 5px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.55; }
+    .badge { display: inline-flex; align-items: center; min-height: 26px; margin-top: 8px; padding: 3px 9px; border-radius: 99px; font-size: .75rem; font-weight: 850; }
+    .badge-confirmed { color: #075f59; background: #c7f2e9; }
+    .badge-unconfirmed { color: #6b4c00; background: #ffe9a9; }
+    .badge-booking { color: #154f91; background: #d8eaff; }
+    .badge-risk { color: #8c2636; background: #ffd9df; }
+    .place-link { display: inline-flex; align-items: center; min-height: 44px; margin: -8px -8px -8px 0; padding: 8px; color: var(--ink); font-weight: 800; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    .place-link::after { content: "↗"; margin-left: 5px; color: var(--sea); }
+    .day-route { border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+    .day-route summary { min-height: 48px; padding: 14px 18px; cursor: pointer; color: var(--ink); font-weight: 850; list-style-position: inside; }
+    .route-panel { padding: 0 18px 16px; }
+    .mini-route { display: block; width: 100%; height: 116px; border-radius: 18px; background: color-mix(in srgb, var(--sea) 11%, var(--surface)); }
+    .mini-route path { fill: none; stroke: var(--day-color); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 8 7; }
+    .mini-route circle { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+    .mini-route text { fill: var(--ink); font-family: inherit; font-size: 10px; font-weight: 750; }
+    .route-stops { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+    .route-stops a, .route-stops span { display: inline-flex; align-items: center; min-height: 34px; padding: 5px 9px; border-radius: 99px; background: color-mix(in srgb, var(--sea) 14%, transparent); color: var(--ink); font-size: .76rem; font-weight: 750; }
+    .route-action { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 16px; border-radius: 15px; background: var(--deep); color: #fff; font-weight: 850; text-decoration: none; }
+    .online-note { margin-left: 9px; color: var(--muted); font-size: .76rem; }
+    .plain-list { margin: 0; padding: 4px 18px 14px 42px; }
+    .plain-list li { padding: 9px 0; line-height: 1.55; }
+    .tip-grid { display: grid; gap: 10px; }
+    .tip { display: grid; grid-template-columns: 36px 1fr; gap: 10px; padding: 14px 16px; }
+    .tip b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; background: color-mix(in srgb, var(--coral) 20%, transparent); }
+    .tip p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .offline-status { position: fixed; z-index: 20; right: 12px; bottom: 12px; left: 12px; width: min(560px, calc(100% - 24px)); margin: auto; padding: 12px 16px; border-radius: 16px; background: var(--deep); color: #fff; box-shadow: 0 10px 28px rgb(0 0 0 / .25); font-size: .86rem; }
+    @media (min-width: 900px) {
+      main { width: min(100% - 64px, 1040px); }
+      .booking-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tip-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 380px) {
+      .timeline li { grid-template-columns: 72px minmax(0, 1fr); gap: 8px; }
+      .now-card { padding: 18px; }
+    }
+    @media (max-width: 430px) {
+      main { width: min(100% - 20px, 410px); }
+      .card, .now-card { max-width: 100%; }
+      .flight-line { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); font-size: .78rem; }
+      .plane { font-size: .72rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <section id="now"></section>
+    <section id="overview-map" aria-labelledby="overview-title">
+      <div class="section-head"><div><p class="section-kicker">SIX DAYS · SABAH</p><h2 id="overview-title">行程总览地图</h2></div><p class="section-note">手绘示意 · 非精确比例</p></div>
+      <div class="card map-card">
+        <svg class="overview-svg" viewBox="0 0 720 390" role="img" aria-labelledby="map-title">
+          <title id="map-title">六天沙巴行程手绘总览</title>
+          <desc>路线连接亚庇、斗湖、仙本那以及马步岛、马达京岛和 Bohey Dulang，每晚住宿用月亮图标标记。</desc>
+          <path class="sea-doodle" d="M25 60c24-12 48 12 72 0s48 12 72 0M500 330c24-12 48 12 72 0s48 12 72 0"/>
+          <path class="land" d="M88 84c54-42 122-45 180-25 50 17 85 51 120 78 48 37 96 35 153 58 54 21 98 61 104 100-53 24-106 14-150-3-58-22-97-20-143-4-67 23-140 20-199-17-38-24-67-63-83-105-12-32-11-60 18-82z"/>
+          <path class="route day-1" d="M155 123c-30 22-30 54 3 75"/>
+          <path class="route day-2" d="M158 198C285 138 390 183 520 235"/>
+          <path class="route day-3" d="M520 235c40 40 55 77 82 100"/>
+          <path class="route day-4" d="M520 235c-5 47-28 79-48 107"/>
+          <path class="route day-5" d="M520 235C390 185 270 220 158 198"/>
+          <path class="route day-6" d="M158 198c-23-28-15-51-3-75"/>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Kota%20Kinabalu" target="_blank" rel="noopener noreferrer"><circle class="node" cx="155" cy="123" r="8"/><text x="115" y="108">Kota Kinabalu</text></a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Tawau%20Airport" target="_blank" rel="noopener noreferrer"><circle class="node" cx="458" cy="215" r="8"/><text x="421" y="200">Tawau</text></a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Semporna%20Sabah" target="_blank" rel="noopener noreferrer"><circle class="node" cx="520" cy="235" r="8"/><text x="525" y="229">Semporna</text></a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Mabul%20Island%20Sabah" target="_blank" rel="noopener noreferrer"><circle class="node" cx="555" cy="291" r="7"/><text x="560" y="287">Mabul</text></a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Mataking%20Island%20Sabah" target="_blank" rel="noopener noreferrer"><circle class="node" cx="602" cy="335" r="7"/><text x="607" y="350">Mataking</text></a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Bohey%20Dulang%20Island" target="_blank" rel="noopener noreferrer"><circle class="node" cx="472" cy="342" r="7"/><text x="380" y="363">Bohey Dulang</text></a>
+          <g aria-label="住宿"><text class="stay" x="166" y="144">☾ D1 Cititel</text><text class="stay" x="532" y="256">☾ D2–3 Mr. Bean</text><text class="stay" x="532" y="274">☾ D4 Amber</text><text class="stay" x="166" y="216">☾ D5 Bay Suites</text></g>
+        </svg>
+        <div class="legend" aria-label="路线图例"><span style="color:#ef6a5b"><i></i>D1 亚庇</span><span style="color:#f5a623"><i></i>D2 入仙本那</span><span style="color:#22a6b3"><i></i>D3 马达京</span><span style="color:#7b61ff"><i></i>D4 海洋公园</span><span style="color:#2f80ed"><i></i>D5 回亚庇</span><span style="color:#ef476f"><i></i>D6 返程</span><span class="stay-key">住宿</span></div>
+      </div>
+    </section>
+    <section id="confirmed-bookings" aria-labelledby="bookings-title"><div class="section-head"><div><p class="section-kicker">LOCKED IN</p><h2 id="bookings-title">已确认的机票 / 酒店</h2></div></div><div class="booking-grid" data-bookings></div></section>
+    <section id="daily-itinerary" aria-labelledby="daily-title"><div class="section-head"><div><p class="section-kicker">DAY BY DAY</p><h2 id="daily-title">逐日行程</h2></div><p class="section-note">时间均标注当地时区</p></div><div class="day-list" data-days></div></section>
+    <section id="todos" aria-labelledby="todos-title"><div class="section-head"><div><p class="section-kicker">BEFORE WE GO</p><h2 id="todos-title">待办清单</h2></div><p class="section-note">办完后统一更新网页</p></div><div class="card"><ul class="plain-list" data-todos></ul></div></section>
+    <section id="tips" aria-labelledby="tips-title"><div class="section-head"><div><p class="section-kicker">GOOD TO KNOW</p><h2 id="tips-title">实用贴士</h2></div></div><div class="tip-grid" data-tips></div></section>
+  </main>
+  <p id="offline-status" class="offline-status" role="status" aria-live="polite" hidden>离线功能暂不可用；在线内容仍可正常查看。</p>
+
+  <script id="trip-data" type="application/json">
+{
+  "title": "亚庇 / 仙本那六日旅行手册",
+  "dateRange": "2026年9月22日—27日",
+  "events": [
+    {"id":"flight-ak1535-depart","startsAt":"2026-09-22T00:25:00+08:00","timezoneLabel":"Asia/Shanghai · UTC+8","title":"AK1535 起飞","location":"广州白云国际机场 T3","status":"confirmed"},
+    {"id":"flight-ak1535-arrive","startsAt":"2026-09-22T03:35:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"AK1535 抵达","location":"亚庇国际机场","status":"confirmed"},
+    {"id":"cititel-arrive","startsAt":"2026-09-22T05:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"凌晨入住 Cititel Express","location":"Cititel Express Kota Kinabalu","status":"risk"},
+    {"id":"mangrove-start","startsAt":"2026-09-22T13:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"红树林行程（暂按）","location":"集合点待确认","status":"unconfirmed"},
+    {"id":"domestic-23-depart","startsAt":"2026-09-23T08:50:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"亚庇飞斗湖（暂按，未出票）","location":"亚庇国际机场","status":"booking"},
+    {"id":"mataking-start","startsAt":"2026-09-24T08:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"马达京路线（时间待确认）","location":"仙本那集合码头待确认","status":"unconfirmed"},
+    {"id":"marine-park-start","startsAt":"2026-09-25T08:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"海洋公园路线（时间待确认）","location":"仙本那集合码头待确认","status":"risk"},
+    {"id":"domestic-26-window","startsAt":"2026-09-26T09:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"前往斗湖机场（航班未出票）","location":"仙本那","status":"booking"},
+    {"id":"fishing-end","startsAt":"2026-09-27T14:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"海钓最晚返港","location":"亚庇码头待确认","status":"risk"},
+    {"id":"airport-deadline","startsAt":"2026-09-27T18:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"抵达机场建议时间","location":"亚庇国际机场","status":"risk"},
+    {"id":"flight-ak1534-depart","startsAt":"2026-09-27T20:05:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"AK1534 起飞","location":"亚庇国际机场","status":"confirmed"},
+    {"id":"flight-ak1534-arrive","startsAt":"2026-09-27T23:20:00+08:00","timezoneLabel":"Asia/Shanghai · UTC+8","title":"AK1534 抵达","location":"广州白云国际机场 T3","status":"confirmed"}
+  ],
+  "places": [
+    {"id":"can-t3","label":"广州白云国际机场 T3","mapsQuery":"Guangzhou Baiyun International Airport Terminal 3","routeEligible":true,"kind":"airport"},
+    {"id":"bki","label":"亚庇国际机场","mapsQuery":"Kota Kinabalu International Airport","routeEligible":true,"kind":"airport"},
+    {"id":"cititel","label":"Cititel Express Kota Kinabalu","mapsQuery":"Cititel Express Kota Kinabalu","routeEligible":true,"kind":"hotel"},
+    {"id":"mangrove-pickup","label":"红树林集合点待确认","mapsQuery":null,"routeEligible":false,"kind":"activity"},
+    {"id":"twu","label":"斗湖机场","mapsQuery":"Tawau Airport","routeEligible":true,"kind":"airport"},
+    {"id":"domestic-flight-23","label":"9月23日境内航班待出票","mapsQuery":null,"routeEligible":false,"kind":"activity"},
+    {"id":"mr-bean","label":"Mr. Bean Holiday","mapsQuery":"Mr Bean Holiday Semporna","routeEligible":true,"kind":"hotel"},
+    {"id":"mabul","label":"马步岛","mapsQuery":"Mabul Island Sabah","routeEligible":false,"kind":"activity"},
+    {"id":"mataking","label":"马达京岛","mapsQuery":"Mataking Island Sabah","routeEligible":false,"kind":"activity"},
+    {"id":"bohey-dulang","label":"Bohey Dulang / 珍珠岛","mapsQuery":"Bohey Dulang Island Sabah","routeEligible":false,"kind":"activity"},
+    {"id":"amber","label":"Amber Villa @ Semporna","mapsQuery":"Amber Villa Semporna","routeEligible":true,"kind":"hotel"},
+    {"id":"domestic-flight-26","label":"9月26日境内航班待出票","mapsQuery":null,"routeEligible":false,"kind":"activity"},
+    {"id":"tanjung-aru","label":"丹绒亚路海滩","mapsQuery":"Tanjung Aru Beach Kota Kinabalu","routeEligible":true,"kind":"activity"},
+    {"id":"gaya-street","label":"加雅街","mapsQuery":"Gaya Street Kota Kinabalu","routeEligible":true,"kind":"city"},
+    {"id":"bay-suites","label":"Bay Suites Kota Kinabalu","mapsQuery":"Bay Suites Kota Kinabalu","routeEligible":true,"kind":"hotel"},
+    {"id":"fishing-jetty","label":"海钓集合码头待确认","mapsQuery":null,"routeEligible":false,"kind":"activity"}
+  ],
+  "flights": [
+    {"date":"2026-09-22","flight":"亚洲航空 AK1535","departTime":"00:25","depart":"广州白云国际机场 T3","arriveTime":"03:35","arrive":"亚庇国际机场","timezone":"两地均为 UTC+8"},
+    {"date":"2026-09-27","flight":"亚洲航空 AK1534","departTime":"20:05","depart":"亚庇国际机场","arriveTime":"23:20","arrive":"广州白云国际机场 T3","timezone":"两地均为 UTC+8"}
+  ],
+  "hotels": [
+    {"id":"cititel","name":"Cititel Express Kota Kinabalu","stay":"9月21日入住 · 9月23日退房","room":"首晚高级双床房；次晚标准双床房","address":"1, Jalan Singgah Mata, Kota Kinabalu","phone":"待补充","note":"9月22日凌晨到店；两笔连续预订需确认保留首晚并尽量免换房。"},
+    {"id":"mr-bean","name":"Mr. Bean Holiday","stay":"9月23日入住 · 9月25日退房","room":"一间双人床房 · 2晚","address":"Jalan Tanjung Kapor, Kampung Seri Melor, 91100 Semporna, Sabah, Malaysia","phone":"+60 19-764 8714","note":"公开业务电话，仅用于联系住宿。"},
+    {"id":"amber","name":"Amber Villa @ Semporna","stay":"9月25日入住 · 9月26日退房","room":"双床房 · 含早餐","address":"待补充","phone":"+60 19-999 9346 / +60 13-488 8808","note":"出海前确认行李如何转送或寄存。"},
+    {"id":"bay-suites","name":"Bay Suites Kota Kinabalu","stay":"9月26日入住 · 9月27日退房","room":"豪华两卧室套房","address":"Bay Suites, Lorong Bayu, Off Jalan Istiadat, Kota Kinabalu","phone":"待补充","note":"返程日先确认退房与行李寄存安排。"}
+  ],
+  "days": [
+    {"id":"day-1","date":"2026-09-22","title":"抵达亚庇 · 红树林","color":"#ef6a5b","overnightPlaceId":"cititel","routePlaceIds":["bki","cititel","mangrove-pickup","cititel"],"routeSegments":[["bki","cititel"]],"items":[
+      {"time":"00:25","title":"AK1535 广州起飞","detail":"广州白云国际机场 T3；Asia/Shanghai · UTC+8。","placeId":"can-t3","status":"confirmed"},
+      {"time":"03:35","title":"抵达亚庇","detail":"入境后前往 Cititel；请提前通知酒店凌晨到店，避免首晚被判 No-show。","placeId":"bki","status":"confirmed"},
+      {"time":"凌晨","title":"入住并休息","detail":"两晚房型不同，向酒店确认是否需要换房。","placeId":"cititel","status":"risk"},
+      {"time":"13:00–21:30","title":"红树林行程（暂按）","detail":"集合点、接送方式与运营商电话待确认；红树林蚊虫较多。","placeId":"mangrove-pickup","status":"unconfirmed"}
+    ]},
+    {"id":"day-2","date":"2026-09-23","title":"亚庇 → 斗湖 → 仙本那","color":"#f5a623","overnightPlaceId":"mr-bean","routePlaceIds":["cititel","bki","domestic-flight-23","twu","mr-bean","mabul"],"routeSegments":[["cititel","bki"],["twu","mr-bean"]],"items":[
+      {"time":"08:50–09:40","title":"亚庇飞斗湖（暂按）","detail":"境内航班尚未出票，不能作为确定锚点。","placeId":"domestic-flight-23","status":"booking"},
+      {"time":"抵达后","title":"斗湖机场接驳至仙本那","detail":"车程约80分钟；接驳方式与司机信息待确认。","placeId":"twu","status":"unconfirmed"},
+      {"time":"下午","title":"马步岛半日游（条件式）","detail":"仅在商家书面确认可衔接午后出发时执行，否则在仙本那镇休整。","placeId":"mabul","status":"risk"},
+      {"time":"晚上","title":"入住 Mr. Bean Holiday","detail":"Jalan Tanjung Kapor, Kampung Seri Melor。","placeId":"mr-bean","status":"confirmed"}
+    ]},
+    {"id":"day-3","date":"2026-09-24","title":"马达京路线 · 体验潜","color":"#22a6b3","overnightPlaceId":"mr-bean","routePlaceIds":["mr-bean","mataking","mr-bean"],"routeSegments":[],"items":[
+      {"time":"待确认","title":"马达京路线跳岛及体验潜","detail":"码头、集合时间、运营商、潜水资格要求和联系电话待确认。","placeId":"mataking","status":"booking"},
+      {"time":"晚上","title":"返回仙本那","detail":"继续入住 Mr. Bean Holiday。","placeId":"mr-bean","status":"confirmed"}
+    ]},
+    {"id":"day-4","date":"2026-09-25","title":"海洋公园 · 换酒店","color":"#7b61ff","overnightPlaceId":"amber","routePlaceIds":["mr-bean","bohey-dulang","amber"],"routeSegments":[["mr-bean","amber"]],"items":[
+      {"time":"出海前","title":"退房并安排好行李","detail":"确认由原酒店寄存、旅行社保管或直接转送 Amber Villa。","placeId":"mr-bean","status":"risk"},
+      {"time":"待确认","title":"海洋公园、浮潜及爬山","detail":"当天为星期五，需运营商书面确认 Bohey Dulang 是否允许登山。","placeId":"bohey-dulang","status":"risk"},
+      {"time":"晚上","title":"入住 Amber Villa","detail":"双床房，含早餐；完整地址待补充。","placeId":"amber","status":"confirmed"}
+    ]},
+    {"id":"day-5","date":"2026-09-26","title":"仙本那 → 亚庇 · 日落","color":"#2f80ed","overnightPlaceId":"bay-suites","routePlaceIds":["amber","twu","domestic-flight-26","bki","bay-suites","tanjung-aru","gaya-street"],"routeSegments":[["amber","twu"],["bki","bay-suites","tanjung-aru","gaya-street"]],"items":[
+      {"time":"09:00–09:30建议","title":"离开仙本那前往斗湖机场","detail":"境内航班未出票；若购买13:00左右航班，不采用原计划10:30出发。","placeId":"twu","status":"booking"},
+      {"time":"抵达后","title":"入住或寄存行李","detail":"前往 Bay Suites；酒店公开电话待补充。","placeId":"bay-suites","status":"confirmed"},
+      {"time":"傍晚","title":"丹绒亚路看日落","detail":"视天气与航班实际到达时间调整。","placeId":"tanjung-aru","status":"unconfirmed"},
+      {"time":"晚上","title":"加雅街逛吃","detail":"仅安排逛街与用餐，不承诺周日市集。","placeId":"gaya-street","status":"unconfirmed"}
+    ]},
+    {"id":"day-6","date":"2026-09-27","title":"半日海钓 · 返回广州","color":"#ef476f","overnightPlaceId":null,"routePlaceIds":["bay-suites","fishing-jetty","bki","can-t3"],"routeSegments":[["bay-suites","bki"]],"items":[
+      {"time":"上午","title":"半日海钓","detail":"集合码头与返港时间待确认；最迟14:00前结束。","placeId":"fishing-jetty","status":"risk"},
+      {"time":"18:00前","title":"18:00前到机场","detail":"为20:05国际航班预留至少2小时。","placeId":"bki","status":"risk"},
+      {"time":"20:05","title":"AK1534 起飞","detail":"Asia/Kuala_Lumpur · UTC+8。","placeId":"bki","status":"confirmed"},
+      {"time":"23:20","title":"抵达广州白云 T3","detail":"Asia/Shanghai · UTC+8。","placeId":"can-t3","status":"confirmed"}
+    ]}
+  ],
+  "todos": [
+    "通知 Cititel：9月22日凌晨到店，保留9月21日起的预订",
+    "请 Cititel 关联两笔连续住宿，并确认是否可免换房",
+    "购买并补充9月23日亚庇→斗湖境内航班",
+    "确认斗湖机场→仙本那接驳",
+    "确认9月23日马步岛半日游能否衔接；不能则取消该项",
+    "补充马达京路线集合时间、码头、运营商和电话",
+    "书面确认9月25日星期五 Bohey Dulang 登山是否开放",
+    "确认9月25日换酒店时的行李保管或转送方案",
+    "购买并补充9月26日斗湖→亚庇境内航班",
+    "补充 Amber Villa 完整公开地址及 Bay Suites 公开电话",
+    "确认9月27日海钓集合码头，并保证14:00前返港"
+  ],
+  "tips": [
+    "广州与沙巴本次行程均为 UTC+8；页面倒计时按绝对时间计算。",
+    "国际航班建议至少提前2小时到机场；9月27日建议18:00前抵达 BKI。",
+    "凌晨入住必须提前让酒店书面确认，防止被判 No-show。",
+    "海岛行程受天气、海况和船班影响，听从持牌运营商安排。",
+    "9月25日出海前先落实行李寄存或转送，再离开酒店。",
+    "浮潜携带防晒、速干衣和防滑涉水鞋；登山是否需要包脚鞋以运营商要求为准。",
+    "地点和路线按钮会打开 Google Maps，导航功能需要网络。",
+    "遇到紧急情况先联系当地紧急服务、运营商或酒店公开前台，避免在公开页面保存私人号码。"
+  ]
+}
+  </script>
+
+  <script id="app-script">
+    (() => {
+      "use strict";
+
+      function parseTripData(jsonText) {
+        const value = JSON.parse(jsonText);
+        if (!Array.isArray(value.events) || !Array.isArray(value.places) || !Array.isArray(value.days)) {
+          throw new TypeError("Trip data must contain events, places and days arrays");
+        }
+        return value;
+      }
+
+      function findNextEvent(events, nowMs = Date.now()) {
+        return [...events]
+          .sort((a, b) => Date.parse(a.startsAt) - Date.parse(b.startsAt))
+          .find((event) => Date.parse(event.startsAt) > nowMs) ?? null;
+      }
+
+      function getCountdownParts(targetMs, nowMs = Date.now()) {
+        const totalMinutes = Math.max(0, Math.floor((targetMs - nowMs) / 60000));
+        return {
+          days: Math.floor(totalMinutes / 1440),
+          hours: Math.floor((totalMinutes % 1440) / 60),
+          minutes: totalMinutes % 60,
+        };
+      }
+
+      function getMalaysiaHour(date = new Date()) {
+        return Number(new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Asia/Kuala_Lumpur",
+          hour: "2-digit",
+          hourCycle: "h23",
+        }).format(date));
+      }
+
+      function getThemeForHour(hour) {
+        return hour >= 6 && hour < 18 ? "day" : "night";
+      }
+
+      function buildGoogleMapsPlaceUrl(query) {
+        if (!query) return null;
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+      }
+
+      function buildGoogleMapsRouteUrl(places) {
+        const seen = new Set();
+        const confirmed = places.filter((place) => {
+          if (!place || !place.mapsQuery || !place.routeEligible || seen.has(place.mapsQuery)) return false;
+          seen.add(place.mapsQuery);
+          return true;
+        });
+        if (confirmed.length < 2) return null;
+        const params = new URLSearchParams({
+          api: "1",
+          origin: confirmed[0].mapsQuery,
+          destination: confirmed.at(-1).mapsQuery,
+          travelmode: "driving",
+        });
+        const waypoints = confirmed.slice(1, -1).map((place) => place.mapsQuery);
+        if (waypoints.length) params.set("waypoints", waypoints.join("|"));
+        return `https://www.google.com/maps/dir/?${params}`;
+      }
+
+      function buildDayRouteUrls(day, places) {
+        const placeById = new Map(places.map((place) => [place.id, place]));
+        const segments = Array.isArray(day.routeSegments) ? day.routeSegments : [];
+        return segments.map((placeIds, index) => ({
+          label: segments.length === 1 ? "打开全天陆路路线" : `打开陆路路线 ${index + 1}`,
+          url: buildGoogleMapsRouteUrl(placeIds.map((id) => placeById.get(id))),
+        })).filter((item) => item.url);
+      }
+
+      function formatEventTime(startsAt, timezoneLabel) {
+        const timeZone = timezoneLabel.startsWith("Asia/Shanghai") ? "Asia/Shanghai" : "Asia/Kuala_Lumpur";
+        return new Intl.DateTimeFormat("zh-CN", {
+          timeZone,
+          month: "long",
+          day: "numeric",
+          weekday: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+          hourCycle: "h23",
+        }).format(new Date(startsAt));
+      }
+
+      function renderNow(trip, nowMs = Date.now()) {
+        const mount = document.getElementById("now");
+        const event = findNextEvent(trip.events, nowMs);
+        if (!event) {
+          mount.innerHTML = '<article class="now-card"><p class="eyebrow">此刻关注</p><h1>旅程已结束</h1><p class="now-meta">愿这趟沙巴之旅，留下很多蓝色的回忆。</p></article>';
+          return;
+        }
+        const remaining = getCountdownParts(Date.parse(event.startsAt), nowMs);
+        mount.innerHTML = `
+          <article class="now-card" aria-live="polite">
+            <p class="eyebrow">此刻关注 · 下一个事件</p>
+            <h1>${event.title}</h1>
+            <p class="now-meta">${event.location}<br><time datetime="${event.startsAt}">${formatEventTime(event.startsAt, event.timezoneLabel)}</time><br>${event.timezoneLabel}</p>
+            <div class="countdown" aria-label="倒计时 ${remaining.days}天 ${remaining.hours}小时 ${remaining.minutes}分钟">
+              <span><strong>${remaining.days}</strong><small>天</small></span>
+              <span><strong>${String(remaining.hours).padStart(2, "0")}</strong><small>时</small></span>
+              <span><strong>${String(remaining.minutes).padStart(2, "0")}</strong><small>分</small></span>
+            </div>
+          </article>`;
+      }
+
+      const statusMeta = {
+        confirmed: ["✓", "已确认"],
+        unconfirmed: ["?", "待确认"],
+        booking: ["↗", "需预订"],
+        risk: ["!", "风险"],
+      };
+
+      function statusBadge(status) {
+        const [icon, label] = statusMeta[status] ?? ["·", status];
+        return `<span class="badge badge-${status}"><span aria-hidden="true">${icon}&nbsp;</span>${label}</span>`;
+      }
+
+      function renderBookings(trip) {
+        const flights = trip.flights.map((flight) => `
+          <article class="card booking-card">
+            <p class="section-kicker">✈ ${flight.date} · 已确认</p>
+            <h3>${flight.flight}</h3>
+            <div class="flight-line"><span><strong>${flight.departTime}</strong>${flight.depart}</span><span class="plane" aria-hidden="true">━━✈</span><span><strong>${flight.arriveTime}</strong>${flight.arrive}</span></div>
+            <p>${flight.timezone}</p>
+          </article>`).join("");
+        const placeById = new Map(trip.places.map((place) => [place.id, place]));
+        const hotels = trip.hotels.map((hotel) => {
+          const place = placeById.get(hotel.id);
+          const placeUrl = buildGoogleMapsPlaceUrl(place?.mapsQuery);
+          return `
+          <article class="card booking-card hotel-row">
+            <span class="hotel-icon" aria-hidden="true">▦</span>
+            <div><p class="section-kicker">HOTEL · 已确认</p><h3>${placeUrl ? `<a class="place-link" href="${placeUrl}" target="_blank" rel="noopener noreferrer">${hotel.name}</a>` : hotel.name}</h3><p><b>${hotel.stay}</b><br>${hotel.room}<br>地址：${hotel.address}<br>电话：${hotel.phone}<br>${hotel.note}</p></div>
+          </article>`;
+        }).join("");
+        document.querySelector("[data-bookings]").innerHTML = flights + hotels;
+      }
+
+      function renderMiniRoute(places) {
+        const count = Math.max(places.length, 2);
+        const points = places.map((place, index) => ({
+          place,
+          x: 34 + (index * 252) / (count - 1),
+          y: index % 2 ? 69 : 45,
+        }));
+        const path = points.map((point, index) => `${index ? "L" : "M"}${point.x} ${point.y}`).join(" ");
+        return `<svg class="mini-route" viewBox="0 0 320 116" role="img" aria-label="当日手绘路线"><path d="${path}"/>${points.map(({ place, x, y }, index) => `<circle cx="${x}" cy="${y}" r="6"/><text x="${Math.max(4, Math.min(x - 22, 270))}" y="${y + (index % 2 ? -13 : 22)}">${place.label.slice(0, 8)}</text>`).join("")}</svg>`;
+      }
+
+      function renderDays(trip) {
+        const placeById = new Map(trip.places.map((place) => [place.id, place]));
+        document.querySelector("[data-days]").innerHTML = trip.days.map((day, dayIndex) => {
+          const routePlaces = day.routePlaceIds.map((id) => placeById.get(id)).filter(Boolean);
+          const routeActions = buildDayRouteUrls(day, trip.places);
+          const routeStops = routePlaces.map((place) => {
+            const url = buildGoogleMapsPlaceUrl(place.mapsQuery);
+            return url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${place.label} ↗</a>` : `<span>${place.label}</span>`;
+          }).join("");
+          return `
+          <article class="card day-card" style="--day-color:${day.color}">
+            <header class="day-header"><span class="date">DAY ${dayIndex + 1} · ${day.date} · Asia/Kuala_Lumpur · UTC+8</span><h3>${day.title}</h3></header>
+            <ol class="timeline">${day.items.map((item) => `
+              <li><time>${item.time}</time><div><h4>${(() => { const place = item.placeId ? placeById.get(item.placeId) : null; const url = buildGoogleMapsPlaceUrl(place?.mapsQuery); return url ? `<a class="place-link" href="${url}" target="_blank" rel="noopener noreferrer">${item.title}</a>` : item.title; })()}</h4><p>${item.detail}</p>${statusBadge(item.status)}</div></li>`).join("")}</ol>
+            <details class="day-route"><summary>展开当日路线</summary><div class="route-panel">${renderMiniRoute(routePlaces)}<div class="route-stops">${routeStops}</div>${routeActions.map((action) => `<a class="route-action" href="${action.url}" target="_blank" rel="noopener noreferrer">${action.label} ↗</a>`).join(" ")}<span class="online-note">导航需联网</span></div></details>
+          </article>`;
+        }).join("");
+      }
+
+      function renderLists(trip) {
+        document.querySelector("[data-todos]").innerHTML = trip.todos.map((item) => `<li>${item}</li>`).join("");
+        const tipIcons = ["◷", "✈", "☾", "≈", "▣", "☀", "⌖", "＋"];
+        document.querySelector("[data-tips]").innerHTML = trip.tips.map((item, index) => `<article class="card tip"><b aria-hidden="true">${tipIcons[index] ?? "•"}</b><p>${item}</p></article>`).join("");
+      }
+
+      function bootTripGuide() {
+        const trip = parseTripData(document.getElementById("trip-data").textContent);
+        const updateTheme = () => {
+          document.documentElement.dataset.theme = getThemeForHour(getMalaysiaHour());
+        };
+        updateTheme();
+        renderNow(trip);
+        renderBookings(trip);
+        renderDays(trip);
+        renderLists(trip);
+        setInterval(() => renderNow(trip), 30000);
+        setInterval(updateTheme, 300000);
+        if ("serviceWorker" in navigator) {
+          window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./sw.js").catch(() => {
+              document.querySelector("#offline-status").hidden = false;
+            });
+          }, { once: true });
+        }
+      }
+
+      globalThis.TripGuide = {
+        parseTripData,
+        findNextEvent,
+        getCountdownParts,
+        getMalaysiaHour,
+        getThemeForHour,
+        buildGoogleMapsPlaceUrl,
+        buildGoogleMapsRouteUrl,
+        buildDayRouteUrls,
+      };
+
+      if (typeof document !== "undefined") {
+        bootTripGuide();
+      }
+    })();
+  </script>
+</body>
+</html>
