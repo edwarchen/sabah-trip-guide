@@ -170,8 +170,9 @@
   "events": [
     {"id":"flight-ak1535-depart","startsAt":"2026-09-22T00:25:00+08:00","timezoneLabel":"Asia/Shanghai · UTC+8","title":"AK1535 起飞","location":"广州白云国际机场 T3","status":"confirmed"},
     {"id":"flight-ak1535-arrive","startsAt":"2026-09-22T03:35:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"AK1535 抵达","location":"亚庇国际机场","status":"confirmed"},
+    {"id":"grab-bki-pickup","startsAt":"2026-09-22T04:30:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"JustGrab 接机","location":"亚庇国际机场抵达厅5号支柱","status":"confirmed"},
     {"id":"cititel-arrive","startsAt":"2026-09-22T05:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"凌晨入住 Cititel Express","location":"Cititel Express Kota Kinabalu","status":"risk"},
-    {"id":"mangrove-start","startsAt":"2026-09-22T13:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"红树林行程（暂按）","location":"集合点待确认","status":"unconfirmed"},
+    {"id":"mangrove-start","startsAt":"2026-09-22T13:00:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"红树林行程 · 酒店接人","location":"Cititel Express Kota Kinabalu","status":"unconfirmed"},
     {"id":"bki-domestic-arrival","startsAt":"2026-09-23T07:30:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"抵达亚庇机场建议时间","location":"亚庇国际机场 T1","status":"risk"},
     {"id":"flight-ak6260-depart","startsAt":"2026-09-23T09:30:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"AK6260 起飞","location":"亚庇国际机场 T1","status":"confirmed"},
     {"id":"flight-ak6260-arrive","startsAt":"2026-09-23T10:20:00+08:00","timezoneLabel":"Asia/Kuala_Lumpur · UTC+8","title":"AK6260 抵达","location":"斗湖机场","status":"confirmed"},
@@ -189,10 +190,10 @@
     {"id":"can-t3","label":"广州白云国际机场 T3","mapsQuery":"Guangzhou Baiyun International Airport Terminal 3","routeEligible":true,"kind":"airport"},
     {"id":"bki","label":"亚庇国际机场","mapsQuery":"Kota Kinabalu International Airport","routeEligible":true,"kind":"airport"},
     {"id":"cititel","label":"Cititel Express Kota Kinabalu","mapsQuery":"Cititel Express Kota Kinabalu","routeEligible":true,"kind":"hotel"},
-    {"id":"mangrove-pickup","label":"红树林集合点待确认","mapsQuery":null,"routeEligible":false,"kind":"activity"},
     {"id":"twu","label":"斗湖机场","mapsQuery":"Tawau Airport","routeEligible":true,"kind":"airport"},
     {"id":"domestic-flight-23","label":"亚洲航空 AK6260（亚庇→斗湖）","mapsQuery":null,"routeEligible":false,"kind":"flight"},
     {"id":"mr-bean","label":"Mr. Bean Holiday","mapsQuery":"Mr Bean Holiday Semporna","routeEligible":true,"kind":"hotel"},
+    {"id":"semporna-jetty","label":"仙本那集合码头待确认","mapsQuery":null,"routeEligible":false,"kind":"activity"},
     {"id":"mataking","label":"马达京岛","mapsQuery":"Mataking Island Sabah","routeEligible":false,"kind":"activity"},
     {"id":"bohey-dulang","label":"Bohey Dulang / 珍珠岛","mapsQuery":"Bohey Dulang Island Sabah","routeEligible":false,"kind":"activity"},
     {"id":"amber","label":"Amber Villa @ Semporna","mapsQuery":"Amber Villa Semporna","routeEligible":true,"kind":"hotel"},
@@ -215,36 +216,39 @@
     {"id":"bay-suites","name":"Bay Suites Kota Kinabalu","stay":"9月26日入住 · 9月27日退房","room":"豪华两卧室套房","address":"Bay Suites, Lorong Bayu, Off Jalan Istiadat, Kota Kinabalu","phone":"待补充","note":"返程日先确认退房与行李寄存安排。"}
   ],
   "days": [
-    {"id":"day-1","date":"2026-09-22","title":"抵达亚庇 · 红树林","color":"#ef6a5b","overnightPlaceId":"cititel","routePlaceIds":["bki","cititel","mangrove-pickup","cititel"],"routeSegments":[["bki","cititel"]],"items":[
+    {"id":"day-1","date":"2026-09-22","title":"抵达亚庇 · 红树林","color":"#ef6a5b","overnightPlaceId":"cititel","routePlaceIds":["bki","cititel"],"routeSegments":[["bki","cititel"]],"items":[
       {"time":"00:25","title":"AK1535 广州起飞","detail":"广州白云国际机场 T3；Asia/Shanghai · UTC+8。","placeId":"can-t3","status":"confirmed"},
-      {"time":"03:35","title":"抵达亚庇","detail":"入境后前往 Cititel；请提前通知酒店凌晨到店，避免首晚被判 No-show。","placeId":"bki","status":"confirmed"},
-      {"time":"凌晨","title":"入住并休息","detail":"两晚房型不同，向酒店确认是否需要换房。","placeId":"cititel","status":"risk"},
-      {"time":"13:00–21:30","title":"红树林行程（暂按）","detail":"集合点、接送方式与运营商电话待确认；红树林蚊虫较多。","placeId":"mangrove-pickup","status":"unconfirmed"}
+      {"time":"03:35","title":"抵达亚庇","detail":"完成入境和取行李后，前往已预约的04:30接机点。","placeId":"bki","status":"confirmed"},
+      {"time":"04:30","title":"JustGrab 接机前往 Cititel","detail":"上车点：亚庇国际机场抵达厅5号支柱／网约车接送站；司机信息将在临近行程时显示。","placeId":"bki","status":"confirmed"},
+      {"time":"约05:00","title":"入住并休息","detail":"提前通知酒店凌晨到店，避免首晚被判 No-show；两晚房型不同，确认是否需要换房。","placeId":"cititel","status":"risk"},
+      {"time":"13:00–21:30","title":"红树林行程 · Cititel 酒店接人","detail":"旅行社会到 Cititel Express 酒店接人；预计9月21日拉群，具体时间和联系人届时确认。红树林蚊虫较多。","placeId":"cititel","status":"unconfirmed"}
     ]},
-    {"id":"day-2","date":"2026-09-23","title":"亚庇 → 斗湖 → 仙本那","color":"#f5a623","overnightPlaceId":"mr-bean","routePlaceIds":["cititel","bki","domestic-flight-23","twu","mr-bean"],"routeSegments":[["cititel","bki"],["twu","mr-bean"]],"items":[
+    {"id":"day-2","date":"2026-09-23","title":"亚庇 → 斗湖 → 仙本那","color":"#f5a623","overnightPlaceId":"mr-bean","routePlaceIds":["cititel","bki","domestic-flight-23","twu","mr-bean","semporna-jetty","mr-bean"],"routeSegments":[["cititel","bki"],["twu","mr-bean"]],"items":[
       {"time":"07:30建议","title":"抵达亚庇机场 T1","detail":"为09:30境内航班预留约2小时办理值机、托运和安检。","placeId":"bki","status":"risk"},
       {"time":"09:30–10:20","title":"AK6260 亚庇飞斗湖","detail":"按已出票的计划时刻排行程；Asia/Kuala_Lumpur · UTC+8。","placeId":"domestic-flight-23","status":"confirmed"},
-      {"time":"抵达后","title":"斗湖机场接驳至仙本那","detail":"车程约80分钟；接驳方式与司机信息待确认。","placeId":"twu","status":"unconfirmed"},
-      {"time":"下午","title":"抵达仙本那并休整","detail":"当日下午不安排海岛行程，避免航班、接驳或船班延误造成赶行程风险。","placeId":"mr-bean","status":"risk"},
-      {"time":"晚上","title":"入住 Mr. Bean Holiday","detail":"Jalan Tanjung Kapor, Kampung Seri Melor。","placeId":"mr-bean","status":"confirmed"}
+      {"time":"10:20后","title":"斗湖机场拼车前往 Mr. Bean","detail":"车程约80分钟；先到 Mr. Bean（憨豆）放行李或办理入住，上车点和司机信息待确认。","placeId":"twu","status":"unconfirmed"},
+      {"time":"13:00","title":"仙本那码头集合","detail":"具体码头待确认。航班10:20落地至集合仅2小时40分，取行李、拼车或道路延误都可能造成迟到，需提前告知运营商。","placeId":"semporna-jetty","status":"risk"},
+      {"time":"晚上","title":"自行 Grab 返回 Mr. Bean","detail":"活动结束回到码头后叫车返回住宿。","placeId":"mr-bean","status":"unconfirmed"}
     ]},
-    {"id":"day-3","date":"2026-09-24","title":"马达京路线 · 体验潜","color":"#22a6b3","overnightPlaceId":"mr-bean","routePlaceIds":["mr-bean","mataking","mr-bean"],"routeSegments":[],"items":[
+    {"id":"day-3","date":"2026-09-24","title":"马达京路线 · 体验潜","color":"#22a6b3","overnightPlaceId":"mr-bean","routePlaceIds":["mr-bean","semporna-jetty","mataking","mr-bean"],"routeSegments":[],"items":[
+      {"time":"出发前","title":"Grab 前往仙本那码头","detail":"从 Mr. Bean 出发；具体码头和集合时间待运营商确认。","placeId":"semporna-jetty","status":"risk"},
       {"time":"待确认","title":"马达京路线跳岛及体验潜","detail":"码头、集合时间、运营商、潜水资格要求和联系电话待确认。","placeId":"mataking","status":"booking"},
       {"time":"晚上","title":"返回仙本那","detail":"继续入住 Mr. Bean Holiday。","placeId":"mr-bean","status":"confirmed"}
     ]},
-    {"id":"day-4","date":"2026-09-25","title":"海洋公园 · 换酒店","color":"#7b61ff","overnightPlaceId":"amber","routePlaceIds":["mr-bean","bohey-dulang","amber"],"routeSegments":[["mr-bean","amber"]],"items":[
-      {"time":"出海前","title":"退房并安排好行李","detail":"确认由原酒店寄存、旅行社保管或直接转送 Amber Villa。","placeId":"mr-bean","status":"risk"},
+    {"id":"day-4","date":"2026-09-25","title":"海洋公园 · 换酒店","color":"#7b61ff","overnightPlaceId":"amber","routePlaceIds":["mr-bean","semporna-jetty","bohey-dulang","amber"],"routeSegments":[["mr-bean","amber"]],"items":[
+      {"time":"出海前","title":"退房、安排行李并 Grab 前往码头","detail":"确认由原酒店寄存、旅行社保管或直接转送 Amber Villa；具体码头待确认。","placeId":"semporna-jetty","status":"risk"},
       {"time":"待确认","title":"海洋公园、浮潜及爬山","detail":"当天为星期五，需运营商书面确认 Bohey Dulang 是否允许登山。","placeId":"bohey-dulang","status":"risk"},
       {"time":"晚上","title":"入住 Amber Villa","detail":"双床房，含早餐；完整地址待补充。","placeId":"amber","status":"confirmed"}
     ]},
     {"id":"day-5","date":"2026-09-26","title":"仙本那 → 亚庇 · 日落","color":"#2f80ed","overnightPlaceId":"bay-suites","routePlaceIds":["amber","twu","domestic-flight-26","bki","bay-suites","tanjung-aru","gaya-street"],"routeSegments":[["amber","twu"],["bki","bay-suites","tanjung-aru","gaya-street"]],"items":[
-      {"time":"10:00建议","title":"离开仙本那前往斗湖机场","detail":"车程约80分钟；建议10:00出发，为13:25航班预留道路、值机和托运时间。","placeId":"twu","status":"risk"},
+      {"time":"10:00建议","title":"Grab 前往斗湖机场","detail":"从 Amber Villa 出发，车程约80分钟；建议10:00出发，并提前叫车或确认司机，为13:25航班预留道路、值机和托运时间。","placeId":"twu","status":"risk"},
       {"time":"13:25–14:20","title":"OD1703 斗湖飞亚庇","detail":"按已出票的计划时刻排行程；Asia/Kuala_Lumpur · UTC+8。","placeId":"domestic-flight-26","status":"confirmed"},
       {"time":"抵达后","title":"入住或寄存行李","detail":"前往 Bay Suites；酒店公开电话待补充。","placeId":"bay-suites","status":"confirmed"},
       {"time":"傍晚","title":"丹绒亚路看日落","detail":"视天气与航班实际到达时间调整。","placeId":"tanjung-aru","status":"unconfirmed"},
       {"time":"晚上","title":"加雅街逛吃","detail":"仅安排逛街与用餐，不承诺周日市集。","placeId":"gaya-street","status":"unconfirmed"}
     ]},
     {"id":"day-6","date":"2026-09-27","title":"半日海钓 · 返回广州","color":"#ef476f","overnightPlaceId":null,"routePlaceIds":["bay-suites","fishing-jetty","bki","can-t3"],"routeSegments":[["bay-suites","bki"]],"items":[
+      {"time":"出发前","title":"Grab 前往海钓码头","detail":"从 Bay Suites 出发；集合码头和出发时间待确认。","placeId":"fishing-jetty","status":"risk"},
       {"time":"上午","title":"半日海钓","detail":"集合码头与返港时间待确认；最迟14:00前结束。","placeId":"fishing-jetty","status":"risk"},
       {"time":"18:00前","title":"18:00前到机场","detail":"为20:05国际航班预留至少2小时。","placeId":"bki","status":"risk"},
       {"time":"20:05","title":"AK1534 起飞","detail":"Asia/Kuala_Lumpur · UTC+8。","placeId":"bki","status":"confirmed"},
@@ -254,11 +258,14 @@
   "todos": [
     "通知 Cititel：9月22日凌晨到店，保留9月21日起的预订",
     "请 Cititel 关联两笔连续住宿，并确认是否可免换房",
-    "确认斗湖机场→仙本那接驳",
-    "补充马达京路线集合时间、码头、运营商和电话",
+    "9月21日等待红树林行程拉群，并确认酒店接人时间和联系人",
+    "确认9月23日斗湖机场拼车的上车点和司机信息",
+    "确认9月23日13:00码头集合可接受航班或拼车延误，并告知运营商",
+    "补充9月23日、24日、25日和27日的准确码头名称、地图位置及集合时间",
+    "补充马达京路线运营商、潜水资格要求和电话",
     "书面确认9月25日星期五 Bohey Dulang 登山是否开放",
     "确认9月25日换酒店时的行李保管或转送方案",
-    "确认9月26日仙本那→斗湖机场送机，按10:00出发安排",
+    "提前确认9月26日 Amber Villa→斗湖机场用车，按10:00出发安排",
     "补充 Amber Villa 完整公开地址及 Bay Suites 公开电话",
     "确认9月27日海钓集合码头，并保证14:00前返港"
   ],
@@ -269,6 +276,7 @@
     "凌晨入住必须提前让酒店书面确认，防止被判 No-show。",
     "海岛行程受天气、海况和船班影响，听从持牌运营商安排。",
     "9月25日出海前先落实行李寄存或转送，再离开酒店。",
+    "码头名称未确认前不要凭模糊名称导航；以运营商发来的定位为准。",
     "浮潜携带防晒、速干衣和防滑涉水鞋；登山是否需要包脚鞋以运营商要求为准。",
     "地点和路线按钮会打开 Google Maps，导航功能需要网络。",
     "遇到紧急情况先联系当地紧急服务、运营商或酒店公开前台，避免在公开页面保存私人号码。"
